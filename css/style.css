@@ -563,7 +563,7 @@ ul {
 
 
 .fragrance-selection {
-    padding: 1.2rem 3.3rem;
+    padding: 1.8rem 3.3rem 1.2rem;
 }
 
 .section-label {
@@ -576,6 +576,7 @@ ul {
 .fragrance-options {
     display: flex;
     gap: 0.75rem;
+    margin-top: 1rem;
 }
 
 .fragrance-option {
@@ -652,14 +653,15 @@ ul {
 
 .bestseller-badge {
     position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.3rem 0.5rem;
+    top: -10px;
+    right: 8px;
+    padding: 0.1rem 0.7rem;
     background: linear-gradient(180deg, rgba(3,46,21,1) 0%, rgba(1,102,48,1) 100%);
     color: white;
     font-size: 7.4px;
     font-weight: 700;
     border-radius: 5px 0 5px 0;
+    z-index: 1;
 }
 
 
@@ -687,6 +689,7 @@ ul {
     font-weight: 300;
     color: #6e7576;
     margin-bottom: 0.5rem;
+    white-space: nowrap;
 }
 
 .included-item strong {
