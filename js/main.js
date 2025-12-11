@@ -1,119 +1,102 @@
+// Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
 
-const slides = [
-  { src: 'https://placehold.co/400x500/dec5e9/ffffff.png', alt: 'Lavender' },
-  { src: 'https://placehold.co/400x500/f4e7c5/ffffff.png', alt: 'Citrus' },
-  { src: 'https://placehold.co/400x500/f6d9d9/ffffff.png', alt: 'Rose' },
-  { src: 'https://placehold.co/400x500/e0f0e7/ffffff.png', alt: 'Green' }
-];
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const accordionItem = this.parentElement;
+            const isActive = accordionItem.classList.contains('active');
 
-const thumbsContainer = document.getElementById('thumbs');
-const dotsContainer = document.getElementById('dots');
-const mainImage = document.getElementById('mainImage');
-const addToCart = document.getElementById('addToCart');
-const expandableBlocks = document.querySelectorAll('.expandable');
+            // Close all accordion items
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-let currentSlide = 0;
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                accordionItem.classList.add('active');
+            }
+        });
+    });
 
-function renderThumbs() {
-  slides.forEach((slide, index) => {
-    const img = document.createElement('img');
-    img.src = slide.src;
-    img.alt = slide.alt;
-    img.loading = 'lazy';
-    img.dataset.index = index;
-    img.addEventListener('click', () => setSlide(index));
-    thumbsContainer.appendChild(img);
+    // Fragrance selection functionality
+    const fragranceOptions = document.querySelectorAll('.fragrance-option');
 
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.dataset.index = index;
-    dot.addEventListener('click', () => setSlide(index));
-    dotsContainer.appendChild(dot);
-  });
-  updateActive();
-}
+    fragranceOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove active class from all options
+            fragranceOptions.forEach(opt => opt.classList.remove('active'));
 
-function setSlide(index) {
-  currentSlide = (index + slides.length) % slides.length;
-  const slide = slides[currentSlide];
-  mainImage.src = slide.src;
-  mainImage.alt = slide.alt;
-  updateActive();
-}
+            // Add active class to clicked option
+            this.classList.add('active');
 
-function updateActive() {
-  thumbsContainer.querySelectorAll('img').forEach((img, i) => {
-    img.classList.toggle('active', i === currentSlide);
-  });
-  dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === currentSlide);
-  });
-}
+            // Check the radio button
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+            }
+        });
+    });
 
-document.getElementById('prevSlide').addEventListener('click', () => setSlide(currentSlide - 1));
-document.getElementById('nextSlide').addEventListener('click', () => setSlide(currentSlide + 1));
+    // Newsletter form submission
+    const newsletterForm = document.querySelector('.newsletter-form');
 
-renderThumbs();
-setSlide(0);
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
 
-function updateCartLink() {
-  const fragrance = document.querySelector('input[name="fragrance"]:checked').value;
-  const purchase = document.querySelector('input[name="purchase"]:checked').value;
-  const url = `https://example.com/cart?fragrance=${fragrance}&type=${purchase}`;
-  addToCart.href = url;
-}
-
-document.querySelectorAll('input[name="fragrance"]').forEach(input => {
-  input.addEventListener('change', updateCartLink);
-});
-
-document.querySelectorAll('input[name="purchase"]').forEach(input => {
-  input.addEventListener('change', e => {
-    updateCartLink();
-    toggleExpand(e.target.value);
-  });
-});
-
-function toggleExpand(value) {
-  expandableBlocks.forEach(block => {
-    block.style.display = block.dataset.plan === value ? 'block' : 'none';
-  });
-}
-
-toggleExpand(document.querySelector('input[name="purchase"]:checked').value);
-updateCartLink();
-
-const numberBlocks = document.querySelectorAll('.number');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const target = Number(entry.target.dataset.target);
-      const valueEl = entry.target.querySelector('.number-value');
-      animateCount(valueEl, target);
-      observer.unobserve(entry.target);
+            if (email) {
+                alert('Thank you for subscribing!');
+                this.reset();
+            }
+        });
     }
-  });
-}, { threshold: 0.4 });
 
-numberBlocks.forEach(block => observer.observe(block));
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
 
-function animateCount(el, target) {
-  let start = 0;
-  const duration = 1200;
-  const startTime = performance.now();
-  function frame(now) {
-    const progress = Math.min((now - startTime) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const value = Math.floor(start + (target - start) * eased);
-    el.textContent = `${value}%`;
-    if (progress < 1) requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 
-const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('.nav');
+    // Add to cart functionality
+    const addToCartBtn = document.querySelector('.btn-full');
 
-hamburger.addEventListener('click', () => {
-  nav.classList.toggle('open');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+            const selectedFragrance = document.querySelector('.fragrance-option.active');
+            const selectedSubscription = document.querySelector('input[name="subscription"]:checked');
+
+            if (selectedFragrance && selectedSubscription) {
+                const fragranceName = selectedFragrance.querySelector('.fragrance-header span').textContent;
+                const subscriptionType = selectedSubscription.nextElementSibling.textContent;
+
+                alert(`Added to cart:\n${fragranceName} - ${subscriptionType}`);
+            }
+        });
+    }
+
+    // Subscription radio button changes
+    const subscriptionRadios = document.querySelectorAll('input[name="subscription"]');
+
+    subscriptionRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Update UI based on selected subscription
+            const cards = document.querySelectorAll('.subscription-card');
+            cards.forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            this.closest('.subscription-card').classList.add('selected');
+        });
+    });
 });
