@@ -141,6 +141,12 @@ ul {
     color: #162455;
 }
 
+.dropdown-toggle img {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
 .header-actions {
     display: flex;
     align-items: center;
@@ -185,6 +191,12 @@ ul {
     justify-content: center;
     background: transparent;
     transition: opacity 0.3s;
+}
+
+.search-btn img {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 .search-btn:hover {
@@ -235,6 +247,11 @@ ul {
     width: 24px;
     height: 24px;
     color: white;
+}
+.badge img {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 .badge span {
@@ -446,7 +463,7 @@ ul {
     gap: 0.25rem;
 }
 
-.rating svg {
+.rating img {
     width: 14px;
     height: 14px;
     display: block;
@@ -981,6 +998,13 @@ ul {
 }
 
 .comparison-table td svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.table-icon {
+    width: 28px;
+    height: 28px;
     display: block;
     margin: 0 auto;
 }
