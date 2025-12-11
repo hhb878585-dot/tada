@@ -41,9 +41,10 @@ ul {
 
 
 .btn-primary {
+  max-width: 220px;
     padding: 1rem 1.75rem;
     border-radius: 100px;
-    background: linear-gradient(180deg, rgba(3,46,21,1) 0%, rgba(1,102,48,1) 100%);
+    background: linear-gradient(180deg, #032E15 0%, #016630 100%);
     color: white;
     font-size: 18px;
     font-weight: 500;
@@ -97,13 +98,17 @@ ul {
 .logo {
     width: 125px;
     height: 47px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    leading-trim: none;
     background: linear-gradient(180deg, rgba(3,46,21,0.6) 0%, rgba(1,102,48,0.6) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 800;
-    font-size: 2rem;
-    line-height: 45px;
 }
 
 .nav ul {
@@ -113,9 +118,14 @@ ul {
 }
 
 .nav a {
-    color: #162455;
-    font-size: 16.2px;
+    color: #162456;
+    font-family: 'Inter', sans-serif;
     font-weight: 400;
+    font-style: normal;
+    font-size: 16.18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    leading-trim: none;
     transition: opacity 0.3s;
 }
 
@@ -203,7 +213,7 @@ ul {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 10000px;
-    background: linear-gradient(180deg, rgba(3,46,21,0.6) 0%, rgba(1,102,48,0.6) 100%);
+    background: linear-gradient(180deg, rgba(3, 46, 21, 0.6) 0%, rgba(1, 102, 48, 0.6) 100%);
     width: fit-content;
     position: relative;
 }
@@ -228,7 +238,8 @@ ul {
 }
 
 .badge span {
-    color: white;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
     font-weight: 300;
     font-size: 16px;
 }
@@ -244,7 +255,7 @@ ul {
 
 .hero-stats {
     display: flex;
-    gap: 1.5rem;
+    gap: 48px;
 }
 
 .stat {
@@ -311,11 +322,11 @@ ul {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    border: 1px solid #c7c7c7;
+    border: 0.81px solid #032E15;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: transparent;
 }
 
 .gallery-nav.prev {
@@ -426,12 +437,20 @@ ul {
 .rating {
     display: flex;
     align-items: center;
-    gap: 0.375rem;
+    gap: 0.5rem;
 }
 
-.rating img {
-    width: 83px;
-    height: 13px;
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.rating svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+    flex-shrink: 0;
 }
 
 .rating span {
@@ -748,6 +767,7 @@ ul {
     width: 100%;
     padding: 1.5rem 2rem;
     background: white;
+    position: relative;
     transition: background 0.3s;
 }
 
@@ -761,13 +781,39 @@ ul {
     color: #032e15;
 }
 
-.chevron {
-    transition: transform 0.3s;
-    color: #032e15;
+.accordion-icons {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.accordion-item.active .chevron {
-    transform: rotate(180deg);
+.accordion-icon {
+    position: absolute;
+    inset: 0;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    transform: scale(0.9) rotate(-90deg);
+    transition: opacity 0.22s ease-in-out, transform 0.22s ease-in-out;
+    pointer-events: none;
+}
+
+.accordion-icon.plus {
+    opacity: 1;
+    transform: scale(0.78) rotate(0deg);
+}
+
+.accordion-item.active .accordion-icon.plus {
+    opacity: 0;
+    transform: scale(0.8) rotate(-90deg);
+}
+
+.accordion-item.active .accordion-icon.minus {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
 }
 
 .accordion-content {
@@ -777,11 +823,11 @@ ul {
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .accordion-content p {
-    padding: 0 1.5rem 1.5rem;
+    padding: 1.75rem 2rem 1.5rem;
     font-size: 16px;
     font-weight: 300;
     color: #666666;

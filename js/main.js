@@ -162,7 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
-            const target = document.querySelector(anchor.getAttribute('href'));
+            const targetSelector = anchor.getAttribute('href');
+            if (!targetSelector || targetSelector === '#') return;
+            const target = document.querySelector(targetSelector);
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
